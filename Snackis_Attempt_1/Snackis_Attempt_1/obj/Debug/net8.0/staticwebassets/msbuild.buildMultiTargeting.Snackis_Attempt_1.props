@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Snackis_Attempt_1.props" />
+</Project>

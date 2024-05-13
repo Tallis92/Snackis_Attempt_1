@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Hem";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Välkommen till Table-Top Talk!</h1>
+    <h4>Ett forum för rollspelsnördar i alla dess former!</h4>
+    <br />
+    @if(Model.MyUser == null)
+    {
+        <p>För att få ta del av alla våra coola trådar så måste du logga in!</p>
+        <br />
+        
+        <br />
+    }
+    else
+    {
+        <a asp-page="RoleAdmin/Index">Roll Admin</a>
+    }
+
+    
+    
+    
+
+</div>
