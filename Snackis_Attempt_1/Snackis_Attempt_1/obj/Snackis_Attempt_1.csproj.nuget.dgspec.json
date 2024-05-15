@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\timta\\OneDrive\\Skola\\Webbapplikationer\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj": {}
+    "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\timta\\OneDrive\\Skola\\Webbapplikationer\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj": {
+    "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\timta\\OneDrive\\Skola\\Webbapplikationer\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj",
+        "projectUniqueName": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj",
         "projectName": "Snackis_Attempt_1",
-        "projectPath": "C:\\Users\\timta\\OneDrive\\Skola\\Webbapplikationer\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj",
+        "projectPath": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1.csproj",
         "packagesPath": "C:\\Users\\timta\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\timta\\OneDrive\\Skola\\Webbapplikationer\\Snackis_Attempt_1\\Snackis_Attempt_1\\obj\\",
+        "outputPath": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
