@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Snackis_Attempt_1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+df8977c586f45ba5034e086319a3cdcf7db9d757")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+674092ca327119ad129d972bddd41f23f168de66")]
 [assembly: System.Reflection.AssemblyProductAttribute("Snackis_Attempt_1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Snackis_Attempt_1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

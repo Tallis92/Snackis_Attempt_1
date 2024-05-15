@@ -106,7 +106,11 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+                string userid = user.Id;
+                
+                //This piece of code makes it so that whenever an account is made the new users role is set to "Användare" by default.
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                await _userManager.AddToRoleAsync(user, "Användare");
 
                 if (result.Succeeded)
                 {
