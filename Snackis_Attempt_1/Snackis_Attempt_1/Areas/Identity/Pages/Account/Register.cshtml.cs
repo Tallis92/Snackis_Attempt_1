@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Snackis_Attempt_1.Areas.Identity.Data;
+using Snackis_Attempt_1.Pages.RoleAdmin;
 
 namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<SnackisUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<SnackisUser> userManager,
             IUserStore<SnackisUser> userStore,
             SignInManager<SnackisUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+			RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -94,7 +98,17 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+			var roles = _roleManager.Roles.ToList();
+
+			if (roles.Count == 0)
+			{
+                await CreateRole("Användare");
+                await CreateRole("Admin");
+                await CreateRole("Huvud Admin");
+
+			}
+            
+			ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
@@ -107,10 +121,22 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 string userid = user.Id;
-                
-                //This piece of code makes it so that whenever an account is made the new users role is set to "Användare" by default.
-                var result = await _userManager.CreateAsync(user, Input.Password);
-                await _userManager.AddToRoleAsync(user, "Användare");
+
+				//**This piece of code makes it so that whenever an account is made the new users role is set to "Användare" by default.**
+				var users = _userManager.Users.ToList();
+				
+				var result = await _userManager.CreateAsync(user, Input.Password);
+				if (users.Count == 0)
+				{
+					await _userManager.AddToRoleAsync(user, "Huvud Admin");
+					await _userManager.AddToRoleAsync(user, "Admin");
+					await _userManager.AddToRoleAsync(user, "Användare");
+				}
+                else
+                {
+					await _userManager.AddToRoleAsync(user, "Användare");
+				}
+				
 
                 if (result.Succeeded)
                 {
@@ -170,5 +196,22 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
             }
             return (IUserEmailStore<SnackisUser>)_userStore;
         }
-    }
+
+		public async Task CreateRole(string roleName)
+		{
+			bool roleExist = await _roleManager.RoleExistsAsync(roleName);
+
+			if (!roleExist)
+			{
+				var role = new IdentityRole
+				{
+					Name = roleName,
+				};
+
+				await _roleManager.CreateAsync(role);
+				//UpdateAsync(role) för att ändra/uppdatera en befintlig post
+
+			}
+		}
+	}
 }

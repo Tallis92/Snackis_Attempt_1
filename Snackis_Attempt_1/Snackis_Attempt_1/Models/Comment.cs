@@ -8,7 +8,7 @@
         public virtual Post Post { get; set; }
         public int PostId { get; set; }
 
-        public virtual Models.User User { get; set; }
+        public virtual Areas.Identity.Data.SnackisUser User { get; set; }
         public int UserId { get; set; }
 
         public DateTime PublishedDate { get; set; }

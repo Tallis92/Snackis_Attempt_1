@@ -1,0 +1,38 @@
+﻿@page
+@model Snackis_Attempt_1.Pages.RoleAdmin.CategoryAdminModel
+@{
+}
+
+<a asp-page="./Index">Tillbaka</a>
+<form method="post">
+
+	<label asp-for="CreateCategory.Name" class="control-label"></label>
+	<input asp-for="CreateCategory.Name" class="form-control" />
+
+	<input type="submit" value="slutför"/>
+
+</form>
+
+
+@if (Model.Categories.Count != 0)
+{
+	
+	@foreach (var category in Model.Categories)
+	{
+		if(category.Id == Model.CategoryId)
+		{
+			<p>Ändra namn på @category.Name?</p>
+			<form method="post">
+				<input asp-for="UpdateCategory.Name" />
+				<input type="submit" value="Ändra namn" />
+			</form>
+			
+		}
+		<p>@category.Name - Skapare: @category.User.NickName - Skapar Id: @category.UserId<a asp-route-categoryId="@category.Id">Ändra</a></p>
+	}
+
+}
+else
+{
+	<h4>Här var det tomt! Prova att lägga till en kategori!</h4>
+}

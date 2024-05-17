@@ -12,12 +12,21 @@
     {
         <p>För att få ta del av alla våra coola trådar så måste du logga in!</p>
         <br />
-        
         <br />
     }
     else
     {
-        <a asp-page="RoleAdmin/Index">Roll Admin</a>
+        if (await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") || 
+        await Model._userManager.IsInRoleAsync(Model.MyUser, "Super Admin"))
+        {
+            <a asp-page="RoleAdmin/Index">Adminsida</a>
+        }
+        
+    }
+
+    @foreach(var category in Model.Categories)
+    {
+        <p>@category.Name</p>
     }
 
     
