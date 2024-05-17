@@ -9,7 +9,9 @@ namespace Snackis_Attempt_1.Pages
     {
         public Areas.Identity.Data.SnackisUser MyUser { get; set; }
 
-		public List<Models.Category> Categories { get; set; }
+        public List<Models.Category> Categories { get; set; }
+        [BindProperty] public Models.Category SelectedCategory { get; set; }
+        public List<Models.Post> Posts { get; set; }
 
 		public UserManager<Areas.Identity.Data.SnackisUser> _userManager { get; set; }
       
@@ -21,9 +23,15 @@ namespace Snackis_Attempt_1.Pages
             _context = context;
         }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(int categoryId)
         {
+
+            if(categoryId != 0)
+            {
+                SelectedCategory =  _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+            }
             
+
             Categories = await _context.Categories.ToListAsync();
             MyUser = await _userManager.GetUserAsync(User);
         }

@@ -16,23 +16,25 @@
 
 @if (Model.Categories.Count != 0)
 {
-	
-	@foreach (var category in Model.Categories)
+
+	if (Model.CategoryId == 0)
 	{
-		if(category.Id == Model.CategoryId)
+		@foreach (var category in Model.Categories)
 		{
-			<p>Ändra namn på @category.Name?</p>
+			<p>@category.Name - Skapare: @category.User.NickName - Skapar Id: @category.UserId  <a asp-route-categoryId="@category.Id">Ändra</a> <a asp-route-deleteId="@category.Id">  Ta bort</a></p>
+		}
+	}
+	else
+		{
+			<p>Ändra namn på @Model.SelectedCategory.Name?</p>
 			<form method="post">
-				<input asp-for="UpdateCategory.Name" />
+				<input asp-for="SelectedCategory.Name" />
 				<input type="submit" value="Ändra namn" />
 			</form>
 			
 		}
-		<p>@category.Name - Skapare: @category.User.NickName - Skapar Id: @category.UserId<a asp-route-categoryId="@category.Id">Ändra</a></p>
-	}
-
 }
-else
+else if(Model.Categories.Count == 0)
 {
 	<h4>Här var det tomt! Prova att lägga till en kategori!</h4>
 }

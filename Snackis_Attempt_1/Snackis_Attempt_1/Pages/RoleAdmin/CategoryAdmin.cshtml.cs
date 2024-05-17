@@ -7,12 +7,12 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
     public class CategoryAdminModel : PageModel
     {
 		internal List<Models.Category> Categories { get; set; }
-		[BindProperty] public Models.Category CreateCategory {  get; set; }
-		[BindProperty] public Models.Category UpdateCategory { get; set; }
+	    public Models.Category CreateCategory {  get; set; }
+		//[BindProperty] public string UpdateCategoryName { get; set; }
+		[BindProperty] public Models.Category SelectedCategory { get; set; }
 		public Areas.Identity.Data.SnackisUser MyUser { get; set; }
 		public List<Areas.Identity.Data.SnackisUser> Users { get; set; }
 		public int CategoryId { get; set; }
-
 
 		private readonly Snackis_Attempt_1.Data.SnackisContext _context;
 		private UserManager<Areas.Identity.Data.SnackisUser> _userManager;
@@ -21,36 +21,45 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
 			_context = context;
 			_userManager = userManager;
 		}
-		public async Task OnGetAsync(int categoryId)
+		public async Task<IActionResult> OnGetAsync(int categoryId, int deleteId)
 		{
+			if(categoryId != 0)
+			{
+				SelectedCategory = _context.Categories.Where(c => c.Id == categoryId).SingleOrDefault();
+			}
+
+			if(deleteId != 0)
+			{
+				var deleteCategory = _context.Categories.Where(c => c.Id == deleteId).FirstOrDefault();
+				_context.Categories.Remove(deleteCategory);
+				await _context.SaveChangesAsync();
+			}
 			CategoryId = categoryId;
 			Users = _userManager.Users.ToList();
 			Categories = _context.Categories.ToList();
+			return Page();
 		}
 
 		public async Task<IActionResult> OnPostAsync(int categoryId)
 		{
-			CategoryId = categoryId;
+			var category = SelectedCategory;
 			MyUser = await _userManager.GetUserAsync(User);
-			if (CategoryId == 0)
-			{
-				
+			if (categoryId == 0)
+			{	
 				CreateCategory.UserId = MyUser.Id;
 				CreateCategory.User = MyUser;
 
 				_context.Categories.Add(CreateCategory);
-				await _context.SaveChangesAsync();
-				
+				await _context.SaveChangesAsync();	
 			}
 			else
-			{
-				//Den skapar nog ett nytt objekt, försök få till att ändra istället
-				//Kolla Webbshoppen ProductManagerAPI och ProductController från API Demo
-				string text = UpdateCategory.Name;
-				UpdateCategory.UserId = MyUser.Id;
-				_context.Categories.Attach(UpdateCategory);
+			{		
+				var editCategory =  _context.Categories.Where(c => c.Id == categoryId).SingleOrDefault();
+				editCategory.Name = SelectedCategory.Name;
 				await _context.SaveChangesAsync();
-			}
+				categoryId = 0;
+
+            }
 			return RedirectToPage("./CategoryAdmin");
 		}
 	}

@@ -4,33 +4,58 @@
     ViewData["Title"] = "Hem";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Välkommen till Table-Top Talk!</h1>
-    <h4>Ett forum för rollspelsnördar i alla dess former!</h4>
-    <br />
-    @if(Model.MyUser == null)
+
+    @if(Model.SelectedCategory == null)
     {
-        <p>För att få ta del av alla våra coola trådar så måste du logga in!</p>
-        <br />
-        <br />
+        <div class="text-center">
+            <h1 class="display-4">Välkommen till Table-Top Talk!</h1>
+            <h4>Ett forum för rollspelsnördar i alla dess former!</h4>
+            <br />
+            @if (Model.MyUser == null)
+            {
+                <p>För att få ta del av alla våra coola trådar så måste du logga in!</p>
+                <br />
+                <br />
+            }
+            else
+            {
+                if (await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") ||
+                await Model._userManager.IsInRoleAsync(Model.MyUser, "Super Admin"))
+                {
+                    <a asp-page="RoleAdmin/Index">Adminsida</a>
+                    <br />
+                    <br />
+                }
+
+            }
+
+            @foreach (var category in Model.Categories)
+            {
+                <h5><a asp-route-categoryId="@category.Id">@category.Name</a></h5>
+            }
+        </div>
     }
     else
     {
-        if (await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") || 
-        await Model._userManager.IsInRoleAsync(Model.MyUser, "Super Admin"))
+        <h3>@Model.SelectedCategory.Name</h3>
+        if(Model.Posts == null)
         {
-            <a asp-page="RoleAdmin/Index">Adminsida</a>
+            <h4>Oj då, här var det tomt! Prova att lägga till en ny tråd för att diskutera coola spel!</h4>
         }
-        
-    }
 
-    @foreach(var category in Model.Categories)
+    <a  asp-route-categoryId="@Model.SelectedCategory.Id" asp-page="RoleAdmin/CategoryAdmin"><input type="button" value="Lägg till en ny tråd!" /></a>
+    if(Model.Posts != null)
     {
-        <p>@category.Name</p>
+        foreach(var post in Model.Posts)
+        {
+            <a>@post.Title</a>
+        }
     }
+}
+
 
     
     
     
 
-</div>
+
