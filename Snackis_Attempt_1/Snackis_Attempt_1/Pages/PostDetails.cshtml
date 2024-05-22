@@ -1,0 +1,31 @@
+﻿@page
+@model Snackis_Attempt_1.Pages.PostDetailsModel
+@{
+	var comments = Methods.Singleton.GetPostComments();
+}
+@if(Model.PostComments == null || Model.PostComments.Count == 0)
+{
+	<h4>Skriv första inlägget till din tråd!</h4>
+
+	<form method="post">
+		<textarea asp-for="@Model.CreateComment.TextContent" cols="40" rows="5"></textarea><br />
+		<input type="submit" value="Posta"/>
+	</form>
+
+}
+else
+{
+	<form method="post">
+		<textarea asp-for="@Model.CreateComment.TextContent" cols="40" rows="5"></textarea><br />
+		<input type="submit" value="Posta" />
+	</form>
+	foreach(var comment in comments)
+	{
+		<div class="card m-2" style="width: 18rem">
+			<p class="card-body">@comment.TextContent <img class="card-img profilepic" src="~/images/@comment.ProfilePic"></img></p>@*Fixa så det finns en profilbild här*@
+			<p class="card-footer">"@comment.CommentCreator" Postad - @comment.PublishedDate.ToString().Remove(10)</p>
+		</div>
+		
+	}
+	
+}

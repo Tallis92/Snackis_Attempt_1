@@ -13,6 +13,10 @@ public class SnackisContext : IdentityDbContext<SnackisUser>
     }
 
     public DbSet<Snackis_Attempt_1.Models.Category> Categories { get; set; } = default;
+    public DbSet<Snackis_Attempt_1.Models.Post> Posts { get; set; } = default;
+    
+    public DbSet<Snackis_Attempt_1.Models.Comment> Comments { get; set; } = default;
+    public DbSet<Snackis_Attempt_1.Models.PrivateMessage> PrivateMessages { get; set; }
 
 	protected override void OnModelCreating(ModelBuilder builder)
     {

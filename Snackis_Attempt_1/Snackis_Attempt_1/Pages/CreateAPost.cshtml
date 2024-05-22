@@ -1,0 +1,15 @@
+﻿@page
+@model Snackis_Attempt_1.Pages.CreateAPostModel
+@{
+	var postId = Model.CreatePost.Id;
+}
+
+<h3>Här skapar vi trådar!</h3>
+<h5>Kom ihåg att hålla tråden relevant för kategorin</h5>
+
+
+<form method="Post">
+	<p>Tråd ämne</p>
+	<input asp-for="@Model.CreatePost.Title" />
+	<input asp-route="@postId" type="submit" value="Skapa tråd" />
+</form>

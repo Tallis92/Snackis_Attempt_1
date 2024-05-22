@@ -115,8 +115,8 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
 
                 user.FirstName = Input.FirstName;
                 user.LastName = Input.LastName;
-                user.NickName = Input.Nickname;
-
+                user.NickName = Input.Nickname;               
+                user.ProfilePic = "defaultpf.jpg";
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

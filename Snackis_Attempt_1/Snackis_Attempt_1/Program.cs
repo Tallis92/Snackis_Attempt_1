@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Snackis_Attempt_1.Data;
+
 namespace Snackis_Attempt_1
 {
     public class Program

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "lGVkx0lC6OuxPAGyNzVD9CTYUkxGx+sbolw05bzlJLU=",
+  "Hash": "7FtsphfkyGe2zog0lOVKHJiGtIVeAXlWicW3m2LjhIE=",
   "Source": "Snackis_Attempt_1",
   "BasePath": "_content/Snackis_Attempt_1",
   "Mode": "Default",
@@ -1269,6 +1269,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\defaultpf.jpg",
+      "SourceId": "Snackis_Attempt_1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\",
+      "BasePath": "_content/Snackis_Attempt_1",
+      "RelativePath": "images/defaultpf.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\defaultpf.jpg"
     },
     {
       "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\js\\site.js",

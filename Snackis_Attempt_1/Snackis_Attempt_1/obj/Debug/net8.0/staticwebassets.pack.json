@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\defaultpf.jpg",
+      "PackagePath": "staticwebassets\\images\\defaultpf.jpg"
+    },
+    {
       "Id": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -7,8 +7,7 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
     public class CategoryAdminModel : PageModel
     {
 		internal List<Models.Category> Categories { get; set; }
-	    public Models.Category CreateCategory {  get; set; }
-		//[BindProperty] public string UpdateCategoryName { get; set; }
+		[BindProperty] public Models.Category CreateCategory {  get; set; }
 		[BindProperty] public Models.Category SelectedCategory { get; set; }
 		public Areas.Identity.Data.SnackisUser MyUser { get; set; }
 		public List<Areas.Identity.Data.SnackisUser> Users { get; set; }
@@ -45,9 +44,11 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
 			var category = SelectedCategory;
 			MyUser = await _userManager.GetUserAsync(User);
 			if (categoryId == 0)
-			{	
-				CreateCategory.UserId = MyUser.Id;
+			{
+
 				CreateCategory.User = MyUser;
+				CreateCategory.UserId = MyUser.Id;
+				
 
 				_context.Categories.Add(CreateCategory);
 				await _context.SaveChangesAsync();	
