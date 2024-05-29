@@ -210,12 +210,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUm9sZUFkbWluXENhdGVnb3J5QWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Git/Snackis_Attempt_1/Snackis_Attempt_1/Snackis_Attempt_1/Pages/RoleAdmin/CourtAdmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUm9sZUFkbWluXENvdXJ0QWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Git/Snackis_Attempt_1/Snackis_Attempt_1/Snackis_Attempt_1/Pages/RoleAdmin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUm9sZUFkbWluXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Git/Snackis_Attempt_1/Snackis_Attempt_1/Snackis_Attempt_1/Pages/RoleAdmin/RoleAdmin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUm9sZUFkbWluXFJvbGVBZG1pbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Git/Snackis_Attempt_1/Snackis_Attempt_1/Snackis_Attempt_1/Pages/Shared/_CookieConsentPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9Db29raWVDb25zZW50UGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Git/Snackis_Attempt_1/Snackis_Attempt_1/Snackis_Attempt_1/Pages/Shared/_LoginPartial.cshtml]

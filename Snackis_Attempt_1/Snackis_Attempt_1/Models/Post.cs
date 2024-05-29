@@ -9,7 +9,7 @@
 
         public string PostCreator { get; set; }
 
-        public virtual Areas.Identity.Data.SnackisUser? User { get; set; }
+      //public virtual Areas.Identity.Data.SnackisUser? User { get; set; }
         public string? UserId { get; set; }
 
         public DateTime? PublishedDate { get; set; }

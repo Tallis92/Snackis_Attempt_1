@@ -6,7 +6,16 @@
 
 		public static List<Models.Comment> PostComments { get; set; }
 
+		public static string ProfilePic {  get; set; }
 
+		public static void SetProfilePic(string profilePic)
+		{
+			ProfilePic = profilePic;
+		}
+		public static string GetProfilePic()
+		{
+			return ProfilePic;
+		}
 		public static void SetPostId(int postId)
 		{
 			PostId = postId;

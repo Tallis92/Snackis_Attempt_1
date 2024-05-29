@@ -2,30 +2,73 @@
 @model Snackis_Attempt_1.Pages.PostDetailsModel
 @{
 	var comments = Methods.Singleton.GetPostComments();
-}
-@if(Model.PostComments == null || Model.PostComments.Count == 0)
-{
-	<h4>Skriv första inlägget till din tråd!</h4>
-
-	<form method="post">
-		<textarea asp-for="@Model.CreateComment.TextContent" cols="40" rows="5"></textarea><br />
-		<input type="submit" value="Posta"/>
-	</form>
+	var recieverId = Model.RecieverId;
 
 }
-else
-{
-	<form method="post">
-		<textarea asp-for="@Model.CreateComment.TextContent" cols="40" rows="5"></textarea><br />
-		<input type="submit" value="Posta" />
-	</form>
-	foreach(var comment in comments)
+<body id="postdetails">
+	@if (recieverId != null)
 	{
-		<div class="card m-2" style="width: 18rem">
-			<p class="card-body">@comment.TextContent <img class="card-img profilepic" src="~/images/@comment.ProfilePic"></img></p>@*Fixa så det finns en profilbild här*@
-			<p class="card-footer">"@comment.CommentCreator" Postad - @comment.PublishedDate.ToString().Remove(10)</p>
-		</div>
-		
+		<h4>Skicka meddelande till @Model._userManager.Users.Where(u => u.Id == recieverId).SingleOrDefault().NickName</h4>
+		<form method="post">
+			<label>Titel</label>
+			<br />
+			<input asp-for="@Model.PrivateMessage.Title" /><br /><br />
+			<textarea asp-for="@Model.PrivateMessage.Message" cols="40" rows="5"></textarea><br /><br />
+			<input asp-route-recieverId="@recieverId" type="submit" value="Posta" />
+		</form>
 	}
-	
-}
+	else
+	{
+		@if (Model.PostComments == null || Model.PostComments.Count == 0)
+		{
+			<h4>Skriv första inlägget till din tråd!</h4>
+
+			<form method="post">
+				<textarea asp-for="@Model.CreateComment.TextContent" cols="40" rows="5"></textarea><br />
+				<input type="submit" value="Posta" />
+			</form>
+
+		}
+		else
+		{
+			<form method="post">
+				<textarea asp-for="@Model.CreateComment.TextContent" cols="40" rows="5"></textarea><br />
+				<input type="submit" value="Posta" />
+			</form>
+			foreach (var comment in comments)
+			{
+				var commentCreator = Model._context.Users.Where(u => u.Id == comment.UserId).SingleOrDefault();
+
+				if (comment.Flagged == true)
+				{
+					<div class="commentcard">
+						<div>
+							<a asp-route-recieverId="@comment.CommentCreator"><span>"@comment.CommentCreator"</span></a><img class="profilepic" src="~/images/@commentCreator.ProfilePic"></img>
+						</div>
+						<p>Kommentaren har flaggats</p>
+						<div> Postad - @comment.PublishedDate.ToString().Remove(10)</div>
+
+					</div>
+
+				}
+				else
+				{
+					<div class="commentcard">
+						<div>
+							<a asp-route-recieverId="@comment.UserId"><span>"@comment.CommentCreator"</span></a><img class="profilepic" src="~/images/@commentCreator.ProfilePic"></img>
+						</div>
+						<p class="commentcard-body">@comment.TextContent </p>
+						<div>
+							Postad - @comment.PublishedDate.ToString().Remove(10)
+							<a asp-route-flagId="@comment.Id">Flagga kommentar</a>
+						</div>
+					</div>
+				}
+
+
+			}
+
+		}
+	}
+
+</body>

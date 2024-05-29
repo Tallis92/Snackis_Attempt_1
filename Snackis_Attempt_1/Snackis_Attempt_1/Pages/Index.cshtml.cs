@@ -15,6 +15,8 @@ namespace Snackis_Attempt_1.Pages
         [BindProperty] public Models.Category SelectedCategory { get; set; }
         public List<Models.Post> Posts { get; set; }
         public Models.Post SelectedPost { get; set; }
+        public List<Models.PrivateMessage> PrivateMessages { get; set; }
+        public int MenuId { get; set; }
 
 		public UserManager<Areas.Identity.Data.SnackisUser> _userManager { get; set; }
       
@@ -26,12 +28,17 @@ namespace Snackis_Attempt_1.Pages
             _context = context;
         }
 
-        public async Task<IActionResult> OnGetAsync(int categoryId, int deleteId)
+        public async Task<IActionResult> OnGetAsync(int checkMessages, int categoryId, int deleteId)
         {
-
+            if(checkMessages == 1)
+            {
+                
+                MenuId = checkMessages;
+            }
             if(categoryId != 0)
             {
                 SelectedCategory =  _context.Categories.Where(c => c.Id == categoryId).FirstOrDefault();
+                Posts = await _context.Posts.Where(p => p.CategoryId == categoryId).ToListAsync();
             }
             if(deleteId != 0)
             {
@@ -44,10 +51,15 @@ namespace Snackis_Attempt_1.Pages
                 _context.Posts.Remove(SelectedPost);
                 _context.SaveChanges();
             }
-
+            
             Categories = await _context.Categories.ToListAsync();
             MyUser = await _userManager.GetUserAsync(User);
-            Posts = await _context.Posts.ToListAsync();
+            
+            if(MyUser != null)
+            {
+                PrivateMessages = await _context.PrivateMessages.Where(m => m.RecievingUserId == MyUser.Id).ToListAsync();
+            }
+            
 
             return Page();
         }

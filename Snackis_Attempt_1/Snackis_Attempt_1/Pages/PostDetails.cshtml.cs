@@ -11,16 +11,24 @@ namespace Snackis_Attempt_1.Pages
         [BindProperty(SupportsGet = true)] public Models.Comment CreateComment { get; set; }
         public static Areas.Identity.Data.SnackisUser MyUser { get; set; }
         public static Models.Post SelectedPost { get; set; }
+       // public string CommentImage { get; set; }
+        public static Models.Comment SelectedComment { get; set; }
+        [BindProperty(SupportsGet = true)] public  Models.PrivateMessage PrivateMessage { get; set; }
+        public string RecieverId { get; set; }
 
-        private readonly Data.SnackisContext _context;
-        private static UserManager<Areas.Identity.Data.SnackisUser> _userManager;
+        public readonly Data.SnackisContext _context;
+        public UserManager<Areas.Identity.Data.SnackisUser> _userManager;
         public PostDetailsModel(Data.SnackisContext context, UserManager<Areas.Identity.Data.SnackisUser> userManager)
         {
             _context = context;
             _userManager = userManager;
         }
-        public async Task<IActionResult> OnGetAsync(int postId)
+        public async Task<IActionResult> OnGetAsync(int postId, int flagId, string recieverId)
         {
+            if(recieverId != null)
+            {
+                RecieverId = recieverId;
+            }
             if(postId == 0)
             {
                 postId = Methods.Singleton.GetPostId();
@@ -29,6 +37,14 @@ namespace Snackis_Attempt_1.Pages
             {
                 Methods.Singleton.SetPostId(postId);
             }
+
+            if(flagId != 0)
+            {
+				SelectedComment = _context.Comments.Where(p => p.Id == flagId).SingleOrDefault();
+                SelectedComment.Flagged = true;
+
+                await _context.SaveChangesAsync();
+			}
             PostComments = _context.Comments.Where(c => c.PostId == postId).ToList();
             Methods.Singleton.SetPostComments(PostComments);
 			MyUser = await _userManager.GetUserAsync(User);
@@ -37,10 +53,11 @@ namespace Snackis_Attempt_1.Pages
 			return Page();
 		}
 
-        public async Task<IActionResult> OnPostAsync(int postId)
+        public async Task<IActionResult> OnPostAsync(int postId, string recieverId)
         {
+            
 
-			if (CreateComment.TextContent != null || CreateComment.TextContent != "")
+            if (CreateComment.TextContent != null)
             {
 				if (postId == 0)
 				{
@@ -60,7 +77,16 @@ namespace Snackis_Attempt_1.Pages
                 _context.Comments.Add(CreateComment);
                 await _context.SaveChangesAsync();
             }
-            return RedirectToPage("PostDetails");
+		    if (PrivateMessage.Message != null || PrivateMessage.Message == "")
+			{
+                PrivateMessage.RecievingUserId = recieverId;
+                PrivateMessage.UserId = MyUser.Id;
+                PrivateMessage.SentDate = DateTime.Today.Date;
+                PrivateMessage.Flagged = false;
+                _context.PrivateMessages.Add(PrivateMessage);
+                await _context.SaveChangesAsync();
+			}
+			return RedirectToPage("PostDetails");
         }
     }
 }

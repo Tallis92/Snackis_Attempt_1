@@ -35,8 +35,8 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
 			}
 			CategoryId = categoryId;
 			Users = _userManager.Users.ToList();
-			Categories = _context.Categories.ToList();
-			return Page();
+            Categories = await DAL.CategoryManagerAPI.GetAllCategories();
+            return Page();
 		}
 
 		public async Task<IActionResult> OnPostAsync(int categoryId)
@@ -46,7 +46,7 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
 			if (categoryId == 0)
 			{
 
-				CreateCategory.User = MyUser;
+				//CreateCategory.User = MyUser;
 				CreateCategory.UserId = MyUser.Id;
 				
 

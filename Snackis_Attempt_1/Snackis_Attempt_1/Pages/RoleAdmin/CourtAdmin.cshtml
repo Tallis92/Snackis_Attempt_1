@@ -1,0 +1,32 @@
+﻿@page
+@model Snackis_Attempt_1.Pages.RoleAdmin.CourtAdminModel
+@{
+}
+<body class="adminpage">
+	<h3>Välkommen till Tabletop-Talks domstol!</h3>
+
+
+	@if (Model.FlaggedComments.Count != 0)
+	{
+		foreach (var comment in Model.FlaggedComments)
+		{
+			var commentCreator = Model._context.Users.Where(u => u.Id == comment.UserId).SingleOrDefault();
+
+			<div class="card m-2" style="width: 18rem">
+				<div class="card-header">
+					<span>"@comment.CommentCreator"</span><img class="profilepic" src="~/images/@commentCreator.ProfilePic"></img>
+				</div>
+				<p class="card-content">@comment.TextContent </p>
+				<div class="card-footer">
+					Postad - @comment.PublishedDate.ToString().Remove(10)
+					<a asp-route-flagId="@comment.Id">Av-Flagga kommentar</a>
+					<a asp-route-deleteId="@comment.Id">Ta bort kommentar</a>
+				</div>
+			</div>
+		}
+	}
+	else
+	{
+		<h3>Inga kommentarer har blivit flaggade för tillfället</h3>
+	}
+</body>

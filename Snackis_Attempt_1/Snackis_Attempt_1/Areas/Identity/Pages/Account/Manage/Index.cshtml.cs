@@ -17,6 +17,7 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<SnackisUser> _userManager;
         private readonly SignInManager<SnackisUser> _signInManager;
+        
 
         public IndexModel(
             UserManager<SnackisUser> userManager,
@@ -26,51 +27,57 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account.Manage
             _signInManager = signInManager;
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public string Username { get; set; }
+        
+        [BindProperty] public string ProfilePic { get; set; }
+        public static Areas.Identity.Data.SnackisUser MyUser { get; set;} //Ta bort om inga referenser efter bilder är avklarade
+        
+        public IFormFile UploadedImage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Phone]
-            [Display(Name = "Phone number")]
+            [Display(Name = "Telefonnummer")]
             public string PhoneNumber { get; set; }
+
+            [PersonalData]
+            [Display(Name = "Profilbild")]
+            [BindProperty]
+            public string ProfilePic { get; set; }
         }
 
         private async Task LoadAsync(SnackisUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            
+            
 
             Username = userName;
 
+            if(user.ProfilePic == null || user.ProfilePic == "defaultpf.jpg")
+            {
+                ProfilePic = "defaultpf.jpg";
+                Methods.Singleton.SetProfilePic(ProfilePic);
+            }
+            else
+            {
+
+                ProfilePic = user.ProfilePic;
+            }
+
+            //MyUser = await _userManager.GetUserAsync(User);
+
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                ProfilePic = user.ProfilePic
             };
         }
 
@@ -88,6 +95,18 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var image = UploadedImage;
+            string fileName = "";
+            if(image != null)
+            {
+                Random rnd = new Random();
+                fileName = rnd.Next(1, 100000).ToString() + image.FileName;
+                using (var fileStream = new FileStream("./wwwroot/images/" + fileName, FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+            }
+
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -110,10 +129,25 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
-
+            var profilePic = Methods.Singleton.GetProfilePic();
+            if (fileName != profilePic)
+            {
+                user.ProfilePic = fileName;              
+            }
+            
+            user.ProfilePic = fileName;
             await _signInManager.RefreshSignInAsync(user);
+            await _userManager.UpdateAsync(user);
+            
+
             StatusMessage = "Your profile has been updated";
+            
             return RedirectToPage();
+        }
+
+        private static string SetProfilePic(Areas.Identity.Data.SnackisUser user, string profilePic)
+        {
+            return profilePic;
         }
     }
 }

@@ -2,40 +2,41 @@
 @model Snackis_Attempt_1.Pages.RoleAdmin.CategoryAdminModel
 @{
 }
+<body class="adminpage">
+	<a asp-page="./Index">Tillbaka</a>
+	<form method="post">
 
-<a asp-page="./Index">Tillbaka</a>
-<form method="post">
-
-	<label asp-for="CreateCategory.Name" class="control-label"></label>
-	<input asp-for="CreateCategory.Name" class="form-control" />
-
-
-	<input type="submit" value="slutför"/>
-
-</form>
+		<label asp-for="CreateCategory.Name" class="control-label"></label>
+		<input asp-for="CreateCategory.Name" class="form-control" />
 
 
-@if (Model.Categories.Count != 0)
-{
+		<input type="submit" value="slutför" />
 
-	if (Model.CategoryId == 0)
+	</form>
+
+
+	@if (Model.Categories.Count != 0)
 	{
-		@foreach (var category in Model.Categories)
+
+		if (Model.CategoryId == 0)
 		{
-			<p>@category.Name - Skapare: @category.User.NickName - Skapar Id: @category.UserId  <a asp-route-categoryId="@category.Id">Ändra</a> <a asp-route-deleteId="@category.Id">  Ta bort</a></p>
+			@foreach (var category in Model.Categories)
+			{
+				<p>@category.Name - Skapare: @Model.Users.Where(u => u.Id == category.UserId).SingleOrDefault().NickName - Skapar Id: @category.UserId  <a asp-route-categoryId="@category.Id">Ändra</a> <a asp-route-deleteId="@category.Id">  Ta bort</a></p>
+			}
 		}
-	}
-	else
+		else
 		{
 			<p>Ändra namn på @Model.SelectedCategory.Name?</p>
 			<form method="post">
 				<input asp-for="SelectedCategory.Name" />
 				<input type="submit" value="Ändra namn" />
 			</form>
-			
+
 		}
-}
-else if(Model.Categories.Count == 0)
-{
-	<h4>Här var det tomt! Prova att lägga till en kategori!</h4>
-}
+	}
+	else if (Model.Categories.Count == 0)
+	{
+		<h4>Här var det tomt! Prova att lägga till en kategori!</h4>
+	}
+</body>

@@ -2,11 +2,18 @@
 @model AdminPageModel
 @{
 }
+<body class="adminpage">
+	<h3>Adminsida</h3>
 
-<h3>Adminsida</h3>
-<ul>
-	<li><a asp-page="./RoleAdmin">Kolla användare/roller</a></li>
-	<li><a asp-page="./CategoryAdmin">Skapa/Ändra kategorier</a></li>
-</ul>
+	<div class="admin-menu">
+		<ul>
+			<li><a asp-page="./RoleAdmin">Kolla användare/roller</a></li>
+			<li><a asp-page="./CategoryAdmin">Skapa/Ändra kategorier</a></li>
+			<li><a asp-page="./CourtAdmin">Domstol för flaggade kommentarer/användare</a></li>
+		</ul>
+	</div>
+	
+</body>
+
 
 

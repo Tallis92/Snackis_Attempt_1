@@ -20,8 +20,16 @@ namespace Snackis_Attempt_1
 
             // Add services to the container.
             builder.Services.AddRazorPages();
-            
+
+            builder.Services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             var app = builder.Build();
+
+            app.UseCookiePolicy();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

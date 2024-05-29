@@ -2,76 +2,115 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Hem";
-}
-
-
-    @if(Model.SelectedCategory == null)
+    int numberOfMessages = 0;
+    if(Model.MyUser != null)
     {
-        <div class="text-center">
-            <h1 class="display-4">Välkommen till Table-Top Talk!</h1>
-            <h4>Ett forum för rollspelsnördar i alla dess former!</h4>
-            <br />
-            @if (Model.MyUser == null)
+        if (Model.PrivateMessages != null)
+        {
+            numberOfMessages = @Model.PrivateMessages.Count;
+        }   
+    }   
+}
+<body id="index">
+    @if (Model.MenuId == 1)
+    {
+        if (Model.PrivateMessages.Where(m => m.RecievingUserId == Model.MyUser.Id).ToList().Count != 0)
+        {
+            foreach (var pm in Model.PrivateMessages.Where(m => m.RecievingUserId == Model.MyUser.Id).ToList())
             {
-                <p>För att få ta del av alla våra coola trådar så måste du logga in!</p>
-                <br />
-                <br />
-            }
-            else
-            {
-                if (await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") ||
-                await Model._userManager.IsInRoleAsync(Model.MyUser, "Super Admin"))
-                {
-                    <a asp-page="RoleAdmin/Index">Adminsida</a>
-                    <br />
-                    <br />
-                }
+                <div class="pm">
+                    <div class="pm-header">
+                        <p>Från:</p>                       
+                        <p id="pm-sender">@Model._userManager.Users.Where(u => u.Id == pm.UserId).SingleOrDefault().NickName</p>
+                    </div>
 
+                    <p>@pm.Message</p>
+                </div>
             }
-
-            @foreach (var category in Model.Categories)
-            {
-                <h5><a asp-route-categoryId="@category.Id">@category.Name</a></h5>
-            }
-        </div>
+        }
+        else
+        {
+            <h3>Det finns inga meddelanden för tillfället!</h3>
+        }
     }
     else
     {
-        <h3>@Model.SelectedCategory.Name</h3>
-
-        <a asp-route-categoryId="@Model.SelectedCategory.Id" asp-page="CreateAPost"><input type="button" value="Lägg till en ny tråd!" /></a>
-        <br />
-        <br />
-    if (Model.Posts == null)
-    {
-        <h4>Oj då, här var det tomt! Prova att lägga till en ny tråd för att diskutera coola spel!</h4>
-    }
-    else 
-    {
-        foreach (var post in Model.Posts)
+        @if (Model.SelectedCategory == null)
         {
-            <div class="card  m-2" style="width: 18rem">
-                <a class="card-body" asp-route-postId="@post.Id" asp-page="PostDetails">@post.Title</a>
-                <div class="card-footer">Trådskapare: @post.PostCreator  Publicerades: @post.PublishedDate.ToString().Remove(10)
-               
-                @if (post.UserId == Model.MyUser.Id || await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") ||
-                await Model._userManager.IsInRoleAsync(Model.MyUser, "Huvud Admin"))
-                {
-                    <a asp-route-deleteId="@post.Id">Ta bort</a>
-                }
+            <div class="text-center" >
+                <div class="mainheader">
+                    <h1 class="display-4">Välkommen till Table-Top Talk!</h1>
+                    <h4>Ett forum för rollspelsnördar i alla dess former!</h4>
+                    <br />
                 </div>
+                
+
+                <div class="submenu">
+                    @if (Model.MyUser != null)
+                    {
+                        if (await Model._userManager.IsInRoleAsync(Model.MyUser, "Användare"))
+                        {
+                            <a asp-route-checkMessages=1 class="messagetext">Kolla dina meddelanden: @numberOfMessages meddelande</a>
+                            <label id="categoryheader">Kategorier</label>
+                        }
+                    }
+                </div>
+                    @foreach (var category in Model.Categories)
+                    {
+                        @if (Model.MyUser == null)
+                        {
+                            <div class="alert-danger">Du måste logga in för att ta del av de här diskussionerna</div>
+                            break;
+                        }
+                        else
+                        {
+                            <h5 class="listedcategories"><a asp-route-categoryId="@category.Id">@category.Name</a></h5>
+                        }
+                    }                           
             </div>
         }
+        else
+        {
+            <h3 id="displaycategoryname">@Model.SelectedCategory.Name</h3>
+
+            <a asp-route-categoryId="@Model.SelectedCategory.Id" asp-page="CreateAPost"><input type="button" value="Lägg till en ny tråd!" /></a>
+            <br />
+            <br />
+            if (Model.Posts == null)
+            {
+                <h4>Oj då, här var det tomt! Prova att lägga till en ny tråd för att diskutera coola spel!</h4>
+            }
+            else
+            {
+                foreach (var post in Model.Posts)
+                {
+                    <div class="categorycard">
+
+                        <a class="card-body" asp-route-postId="@post.Id" asp-page="PostDetails">@post.Title</a>
+                        <div class="card-footer">
+                            Trådskapare: @post.PostCreator  Publicerades: @post.PublishedDate.ToString().Remove(10)
+
+                            @if (post.UserId == Model.MyUser.Id || await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") ||
+                           await Model._userManager.IsInRoleAsync(Model.MyUser, "Huvud Admin"))
+                            {
+                                <a asp-route-deleteId="@post.Id">Ta bort</a>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+
+
+
+
+
+        }
+
     }
-       
-       
-        
 
-        
-    }
+</body>
 
 
-    
     
     
 

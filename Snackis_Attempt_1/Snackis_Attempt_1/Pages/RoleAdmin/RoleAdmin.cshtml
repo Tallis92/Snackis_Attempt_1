@@ -2,38 +2,41 @@
 @model IndexModel
 @{
 }
-<a asp-page="./Index">Tillbaka</a>
-<h4>Skapa en ny roll? Fyll i nedanför</h4>
-<form method="post">
-	<label for="RoleName"></label>
-	<input name="RoleName" id="RoleName" />
-	<input type="submit" value="Skapa ny roll" />
-</form>
+<body class="adminpage">
+	<a asp-page="./Index">Tillbaka</a>
+	<h4>Skapa en ny roll? Fyll i nedanför</h4>
+	<form method="post">
+		<label for="RoleName"></label>
+		<input name="RoleName" id="RoleName" />
+		<input type="submit" value="Skapa ny roll" />
+	</form>
 
-<table class="table">
-	<tr>
-		<th>Username</th>
-		@foreach (var role in Model.Roles)
-		{
-			<th>@role.Name</th>
-		}
-	</tr>
-	@foreach (var user in Model.Users)
-	{
+	<table class="table">
 		<tr>
-			<td>@user.UserName</td>
+			<th>Username</th>
 			@foreach (var role in Model.Roles)
 			{
-				if (await Model._userManager.IsInRoleAsync(user, role.Name))
-				{
-					<td><a href="?RemoveUserId=@user.Id&RoleName=@role.Name">Ja</a></td>
-				}
-				else
-				{
-					<td><a href="?AddUserId=@user.Id&RoleName=@role.Name">Nej</a></td>
-				}
+				<th>@role.Name</th>
 			}
 		</tr>
+		@foreach (var user in Model.Users)
+		{
+			<tr>
+				<td>@user.UserName</td>
+				@foreach (var role in Model.Roles)
+				{
+					if (await Model._userManager.IsInRoleAsync(user, role.Name))
+					{
+						<td><a href="?RemoveUserId=@user.Id&RoleName=@role.Name">Ja</a></td>
+					}
+					else
+					{
+						<td><a href="?AddUserId=@user.Id&RoleName=@role.Name">Nej</a></td>
+					}
+				}
+			</tr>
 
-	}
-</table>
+		}
+	</table>
+</body>
+
