@@ -73,8 +73,8 @@ namespace Snackis_Attempt_1.Areas.Identity.Pages.Account
 
                 await _emailSender.SendEmailAsync(
                     Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    "Återställ lösenord",
+                    $"Var god och återställ lösenord genom att <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>klicka här</a>.");
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

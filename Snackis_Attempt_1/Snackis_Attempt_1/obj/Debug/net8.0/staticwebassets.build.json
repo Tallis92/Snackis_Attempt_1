@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "H26cZZRQIji64jl9Ss4kADVHSHuT75O1wponkQ4eL10=",
+  "Hash": "k5I2nZzdeVO4uR8ZX18yzi3wKYxBlCx7tm27ZbXqsKc=",
   "Source": "Snackis_Attempt_1",
   "BasePath": "_content/Snackis_Attempt_1",
   "Mode": "Default",
@@ -1328,6 +1328,25 @@
       "OriginalItemSpec": "wwwroot\\images\\31141Mellewere.webp"
     },
     {
+      "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\54764nerd.jpg",
+      "SourceId": "Snackis_Attempt_1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\",
+      "BasePath": "_content/Snackis_Attempt_1",
+      "RelativePath": "images/54764nerd.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\54764nerd.jpg"
+    },
+    {
       "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\61540Jaquinne Zolvan.png",
       "SourceId": "Snackis_Attempt_1",
       "SourceType": "Discovered",
@@ -1345,6 +1364,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\61540Jaquinne Zolvan.png"
+    },
+    {
+      "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\92933judas.jpg",
+      "SourceId": "Snackis_Attempt_1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\",
+      "BasePath": "_content/Snackis_Attempt_1",
+      "RelativePath": "images/92933judas.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\92933judas.jpg"
     },
     {
       "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\93543michelin.webp",
