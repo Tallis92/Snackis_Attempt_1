@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Kln6OBNKb9wBsDQQLnVTo4Ry8uRwoqSnN9mPBKWSZN8=",
+  "Hash": "H26cZZRQIji64jl9Ss4kADVHSHuT75O1wponkQ4eL10=",
   "Source": "Snackis_Attempt_1",
   "BasePath": "_content/Snackis_Attempt_1",
   "Mode": "Default",
@@ -1345,6 +1345,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\61540Jaquinne Zolvan.png"
+    },
+    {
+      "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\93543michelin.webp",
+      "SourceId": "Snackis_Attempt_1",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\",
+      "BasePath": "_content/Snackis_Attempt_1",
+      "RelativePath": "images/93543michelin.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\93543michelin.webp"
     },
     {
       "Identity": "D:\\Git\\Snackis_Attempt_1\\Snackis_Attempt_1\\Snackis_Attempt_1\\wwwroot\\images\\defaultpf.jpg",

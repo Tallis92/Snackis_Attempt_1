@@ -9,7 +9,7 @@ namespace Snackis_Attempt_1.Pages
     {
         public List<Models.Comment> PostComments { get; set; }
         [BindProperty(SupportsGet = true)] public Models.Comment CreateComment { get; set; }
-        public static Areas.Identity.Data.SnackisUser MyUser { get; set; }
+        public Areas.Identity.Data.SnackisUser MyUser { get; set; }
         public static Models.Post SelectedPost { get; set; }
        // public string CommentImage { get; set; }
         public static Models.Comment SelectedComment { get; set; }
@@ -23,9 +23,14 @@ namespace Snackis_Attempt_1.Pages
             _context = context;
             _userManager = userManager;
         }
-        public async Task<IActionResult> OnGetAsync(int postId, int flagId, string recieverId)
+        public async Task<IActionResult> OnGetAsync(int postId, int flagId, string recieverId, int deleteCommentId)
         {
-            if(recieverId != null)
+			PostComments = _context.Comments.Where(c => c.PostId == postId).ToList();
+			Methods.Singleton.SetPostComments(PostComments);
+			MyUser = await _userManager.GetUserAsync(User);
+			SelectedPost = _context.Posts.Where(p => p.Id == postId).SingleOrDefault();
+
+			if (recieverId != null)
             {
                 RecieverId = recieverId;
             }
@@ -45,19 +50,23 @@ namespace Snackis_Attempt_1.Pages
 
                 await _context.SaveChangesAsync();
 			}
-            PostComments = _context.Comments.Where(c => c.PostId == postId).ToList();
-            Methods.Singleton.SetPostComments(PostComments);
-			MyUser = await _userManager.GetUserAsync(User);
-            SelectedPost = _context.Posts.Where(p => p.Id == postId).SingleOrDefault();
+
+            if(deleteCommentId != 0)
+            {
+                SelectedComment = await _context.Comments.Where(c => c.Id == deleteCommentId).SingleOrDefaultAsync();
+                _context.Comments.Remove(SelectedComment);
+                await _context.SaveChangesAsync();
+			}
+            
 
 			return Page();
 		}
 
         public async Task<IActionResult> OnPostAsync(int postId, string recieverId)
         {
-            
+			MyUser = await _userManager.GetUserAsync(User);
 
-            if (CreateComment.TextContent != null)
+			if (CreateComment.TextContent != null)
             {
 				if (postId == 0)
 				{
@@ -86,7 +95,7 @@ namespace Snackis_Attempt_1.Pages
                 _context.PrivateMessages.Add(PrivateMessage);
                 await _context.SaveChangesAsync();
 			}
-			return RedirectToPage("PostDetails");
+            return RedirectToPage("./Index");
         }
     }
 }

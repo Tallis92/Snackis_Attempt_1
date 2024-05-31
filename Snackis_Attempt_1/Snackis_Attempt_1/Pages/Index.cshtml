@@ -20,11 +20,12 @@
             {
                 <div class="pm">
                     <div class="pm-header">
-                        <p>Från:</p>                       
-                        <p id="pm-sender">@Model._userManager.Users.Where(u => u.Id == pm.UserId).SingleOrDefault().NickName</p>
+                        <p>Från:</p>         
+                        <p id="pm-sender">@Model._userManager.Users.Where(u => u.Id == pm.UserId).SingleOrDefault().NickName</p>                       
                     </div>
-
+                    <h4>@pm.Title</h4>
                     <p>@pm.Message</p>
+                    <a class="deletebutton" asp-route-deletePmId="@pm.Id">Ta bort</a>
                 </div>
             }
         }

@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using System;
 
 namespace Snackis_Attempt_1.Pages.RoleAdmin
 {
@@ -29,9 +32,28 @@ namespace Snackis_Attempt_1.Pages.RoleAdmin
 
 			if(deleteId != 0)
 			{
-				var deleteCategory = _context.Categories.Where(c => c.Id == deleteId).FirstOrDefault();
-				_context.Categories.Remove(deleteCategory);
-				await _context.SaveChangesAsync();
+				try
+				{
+					var deleteCategory = await _context.Categories.Where(c => c.Id == deleteId).FirstOrDefaultAsync();
+					var deletePosts = await _context.Posts.Where(p => p.CategoryId == deleteCategory.Id).ToListAsync();
+					if (deleteCategory != null || deletePosts != null)
+					{						
+						foreach (var post in deletePosts)
+						{
+							foreach (var comment in _context.Comments.Where(c => c.PostId == post.Id))
+							{
+								_context.Comments.Remove(comment);
+							}
+							_context.Posts.Remove(post);
+						}
+					}
+					_context.Categories.Remove(deleteCategory);
+					await _context.SaveChangesAsync();
+				}
+				catch(Exception ex)
+				{
+
+				}							
 			}
 			CategoryId = categoryId;
 			Users = _userManager.Users.ToList();

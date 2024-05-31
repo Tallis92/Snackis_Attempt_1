@@ -61,6 +61,11 @@
 						<div>
 							Postad - @comment.PublishedDate.ToString().Remove(10)
 							<a asp-route-flagId="@comment.Id">Flagga kommentar</a>
+							@if (comment.UserId == Model.MyUser.Id || await Model._userManager.IsInRoleAsync(Model.MyUser, "Admin") ||
+									await Model._userManager.IsInRoleAsync(Model.MyUser, "Huvud Admin"))
+							{
+								<a asp-route-deleteCommentId="@comment.Id">Ta bort</a>
+							}
 						</div>
 					</div>
 				}

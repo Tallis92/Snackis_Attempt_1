@@ -9,6 +9,7 @@
     <WebStackScaffolding_IdentityDialogWidth>650</WebStackScaffolding_IdentityDialogWidth>
     <RazorPage_SelectedScaffolderID>RazorPageScaffolder</RazorPage_SelectedScaffolderID>
     <RazorPage_SelectedScaffolderCategoryPath>root/Common/RazorPage</RazorPage_SelectedScaffolderCategoryPath>
+    <NameOfLastUsedPublishProfile>D:\Git\Snackis_Attempt_1\Snackis_Attempt_1\Snackis_Attempt_1\Properties\PublishProfiles\tabletoptalkmain - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
