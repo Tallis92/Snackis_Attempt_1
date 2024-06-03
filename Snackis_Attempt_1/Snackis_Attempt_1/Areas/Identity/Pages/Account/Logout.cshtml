@@ -3,19 +3,20 @@
 @{
     ViewData["Title"] = "Logga ut";
 }
-
-<header>
-    <h1>@ViewData["Title"]</h1>
-    @{
-        if (User.Identity?.IsAuthenticated ?? false)
-        {
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                <button type="submit" class="nav-link btn btn-link text-dark">Klicka här för att logga ut</button>
-            </form>
+<body class="adminpage">
+    <header>
+        <h1>@ViewData["Title"]</h1>
+        @{
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Klicka här för att logga ut</button>
+                </form>
+            }
+            else
+            {
+                <p>Du har loggat ut från applikationen.</p>
+            }
         }
-        else
-        {
-            <p>Du har loggat ut från applikationen.</p>
-        }
-    }
-</header>
+    </header>
+</body>

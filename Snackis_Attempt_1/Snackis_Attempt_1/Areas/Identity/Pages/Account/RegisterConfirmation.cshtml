@@ -3,21 +3,21 @@
 @{
     ViewData["Title"] = "Bekräfta registrering";
 }
-
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    Den här appen har ingen riktig email skickare registrerad, se <a href="https://aka.ms/aspaccountconf">dessa dokument</a> för att ta reda på hur man skapar en email skickare.
-    Normalt skulle det här mailas till: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Klicka här för att bekräfta ditt konto</a>
-</p>
+<body class="adminpage">
+    <h1>@ViewData["Title"]</h1>
+    @{
+        if (@Model.DisplayConfirmAccountLink)
+        {
+    <p>
+        Den här appen har ingen riktig email skickare registrerad, se <a href="https://aka.ms/aspaccountconf">dessa dokument</a> för att ta reda på hur man skapar en email skickare.
+        Normalt skulle det här mailas till: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Klicka här för att bekräfta ditt konto</a>
+    </p>
+        }
+        else
+        {
+    <p>
+            Var god och kolla din mail för att registrera kontot.
+    </p>
+        }
     }
-    else
-    {
-<p>
-        Var god och kolla din mail för att registrera kontot.
-</p>
-    }
-}
-
+</body>
