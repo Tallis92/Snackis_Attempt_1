@@ -51,11 +51,12 @@
                     {
                         if (await Model._userManager.IsInRoleAsync(Model.MyUser, "Användare"))
                         {
-                            <a asp-route-checkMessages=1 class="messagetext">Kolla dina meddelanden: @numberOfMessages meddelande</a>
+                            <a asp-route-checkMessages=1 class="deletebutton">Kolla dina meddelanden: @numberOfMessages meddelande</a>
                             <label id="categoryheader">Kategorier</label>
                         }
                     }
                 </div>
+                <div class="category-menu">
                     @foreach (var category in Model.Categories)
                     {
                         @if (Model.MyUser == null)
@@ -67,7 +68,9 @@
                         {
                             <h5 class="listedcategories"><a asp-route-categoryId="@category.Id">@category.Name</a></h5>
                         }
-                    }                           
+                    }
+                </div>
+                                     
             </div>
         }
         else

@@ -29,7 +29,7 @@ body {
 }
 #categoryheader {
     font-size: 2em;
-    margin-left: 275px;
+    margin-left: 215px;
     font-weight: bold;
     color: black;
 }
@@ -56,6 +56,17 @@ body {
     border-radius: 10px;
 }
 
+.category-menu {
+    background-color: aquamarine;
+    margin: 10px;
+    border-radius: 10px;
+    border: 2px groove;
+    border-color: darkslategrey;
+    font-size: 1.5em;
+    width: 20vw;
+    margin-left: 450px
+    
+}
 .categorycard {
     background-color: aquamarine;
     margin: 10px;

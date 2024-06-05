@@ -21,8 +21,6 @@ namespace Snackis_Attempt_1.Methods
 				};
 
 				await _roleManager.CreateAsync(role);
-				//UpdateAsync(role) för att ändra/uppdatera en befintlig post
-
 			}
 		}
 	}
