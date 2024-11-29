@@ -1,0 +1,14 @@
+name: PrintText
+
+on:
+  workflow_dispatch
+
+jobs:
+  Print_Text:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+    - uses: actions/checkout@v4
+      
+    - name: print
+      run: cat main.txt
